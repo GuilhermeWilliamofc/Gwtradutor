@@ -38,6 +38,27 @@ async def tradutor(texto: str):
         input_idioma_destino.insert(0, resultado.text)  # Inserir o texto traduzido
         input_idioma_destino.configure(state='disabled')  # Desabilitar novamente o campo
 
+    if opcao_idioma_destino.get() == 'Português' or opcao_idioma_destino.get() == 'Inglês':
+        texto_para_voz(resultado.text)
+
+
+def texto_para_voz(frase: str):
+    if opcao_idioma_destino.get() == 'Português' or opcao_idioma_destino.get() == 'Inglês':
+
+        import pyttsx3
+
+        falar = pyttsx3.init('sapi5') 
+        
+        vozes = falar.getProperty('voices')
+        if opcao_idioma_destino.get() == 'Português':
+            idioma = 0
+        else:
+            idioma = 1
+
+        falar.setProperty('voice', vozes[idioma].id)
+        falar.say(frase)
+        falar.runAndWait()
+
 
 # iniciar customtk
 janela = CTk()
